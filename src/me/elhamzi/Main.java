@@ -13,13 +13,20 @@ public class Main {
         float annualInterest = (float)readValue("Annual Interest Rate: ", 0, 30);
         byte years = (byte)readValue("Period(Years): ", 1, 30);
 
-        double mortgage = calculateMortgage(principal,annualInterest, years);
+        printMortgage(principal, annualInterest, years);
+        printPaymentSchedule(principal, annualInterest, years);
+    }
+
+    private static void printMortgage(int principal, float annualInterest, byte years) {
+        double mortgage = calculateMortgage(principal, annualInterest, years);
         String mortgageFormatted = NumberFormat.getCurrencyInstance(Locale.US).format(mortgage);
         System.out.println("\nMORTGAGE\n--------");
         System.out.println("Monthly Payments: " + mortgageFormatted +"\n");
+    }
 
+    private static void printPaymentSchedule(int principal, float annualInterest, byte years) {
         System.out.println("PAYMENT SCHEDULE\n----------------");
-        for (short month = 1; month<=years * MONTHS_IN_YEAR; month++){
+        for (short month = 1; month<= years * MONTHS_IN_YEAR; month++){
             double balance = calculateLoanBalance(principal, annualInterest, years, month);
             String loanBalance = NumberFormat.getCurrencyInstance(Locale.US).format(balance);
             System.out.println("Month (" + month + "):" + loanBalance);
