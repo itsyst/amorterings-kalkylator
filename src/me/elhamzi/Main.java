@@ -7,12 +7,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        final byte MONTHS_IN_YEAR = 12;
-        final byte PERCENT = 100;
 
         int principal;
-        int numberOfPayments;
-        float monthlyInterest;
+        float annualInterest;
+        byte years;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -26,9 +24,8 @@ public class Main {
 
         while (true) {
             System.out.print("Annual Interest Rate: ");
-            float annualInterest = scanner.nextFloat();
+            annualInterest = scanner.nextFloat();
             if (annualInterest > 0 && annualInterest <= 30) {
-                monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
                 break;
             }
             System.out.println("Enter a value greater than 0 and less than or equal to 30.");
@@ -36,18 +33,29 @@ public class Main {
 
         while (true) {
             System.out.print("Period(Years): ");
-            byte years = scanner.nextByte();
+            years = scanner.nextByte();
             if (years >= 1 && years <= 30) {
-                numberOfPayments = years * MONTHS_IN_YEAR;
                 break;
             }
             System.out.println("Enter a value between 1 and 30");
         }
 
-        double mortgage = principal * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
+        double mortgage = calculateMortgage(principal,annualInterest, years);
 
         String mortgageFormatted = NumberFormat.getCurrencyInstance(Locale.US).format(mortgage);
         System.out.print("Mortgage: " + mortgageFormatted);
 
+    }
+
+    public static Double calculateMortgage(int principal, float annualInterest, byte years) {
+        final byte MONTHS_IN_YEAR = 12;
+        final byte PERCENT = 100;
+
+        float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
+        float numberOfPayments = years * MONTHS_IN_YEAR;
+
+        double mortgage = principal * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
+
+        return mortgage;
     }
 }
