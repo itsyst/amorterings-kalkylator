@@ -52,7 +52,7 @@ public class Main {
         final byte PERCENT = 100;
 
         float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
-        float numberOfPayments = years * MONTHS_IN_YEAR;
+        short numberOfPayments = (short)(years * MONTHS_IN_YEAR);
 
         double mortgage = principal * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
 
