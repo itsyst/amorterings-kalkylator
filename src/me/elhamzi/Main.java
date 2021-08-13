@@ -1,8 +1,6 @@
 package me.elhamzi;
 
 public class Main {
-    final static byte MONTHS_IN_YEAR = 12;
-    final static byte PERCENT = 100;
 
     public static void main(String[] args) {
         int principal = (int) Console.readValue("Principal($1k - $1M): ", 1000, 1_000_000);
