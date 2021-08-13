@@ -34,15 +34,19 @@ public class MortgageCalculator {
         return loanBalance;
     }
 
+    public double[] getRemainingBalances() {
+        var balances = new double[getNumberOfPayments()];
+        for (short month = 1; month <= balances.length; month++)
+            balances[month - 1] = calculateLoanBalance(month);
+
+        return balances;
+    }
+
     private float getMonthlyInterest() {
         return _annualInterest / PERCENT / MONTHS_IN_YEAR;
     }
 
     private short getNumberOfPayments() {
         return (short) (_years * MONTHS_IN_YEAR);
-    }
-
-    public short getYears() {
-        return _years;
     }
 }
